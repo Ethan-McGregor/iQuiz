@@ -11,7 +11,7 @@ import UIKit
 class ViewController: UITableViewController {
     
     let subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
-    let desc = ["You get to do MATH!", "Are you a Marvel buff?", "SCIENCE!!!"]
+    let desc = ["Math is fun...?", "Marvel", "SCIENCE!"]
     let icons = [#imageLiteral(resourceName: "math"), #imageLiteral(resourceName: "marvel"), #imageLiteral(resourceName: "science")]
     
     override func viewDidLoad() {
