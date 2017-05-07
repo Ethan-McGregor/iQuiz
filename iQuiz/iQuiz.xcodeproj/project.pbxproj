@@ -16,6 +16,9 @@
 		49B406EF1EB7F7B700761628 /* iQuizUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B406EE1EB7F7B700761628 /* iQuizUITests.swift */; };
 		49B406FD1EB7FB4D00761628 /* NavView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B406FC1EB7FB4D00761628 /* NavView.swift */; };
 		49B406FF1EB7FB8000761628 /* Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B406FE1EB7FB8000761628 /* Cell.swift */; };
+		49B407011EBF9D1900761628 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B407001EBF9D1900761628 /* Question.swift */; };
+		49B407031EBF9D9D00761628 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B407021EBF9D9D00761628 /* Answer.swift */; };
+		49B407051EBF9DBA00761628 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B407041EBF9DBA00761628 /* Score.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		49B406F01EB7F7B700761628 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		49B406FC1EB7FB4D00761628 /* NavView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavView.swift; sourceTree = "<group>"; };
 		49B406FE1EB7FB8000761628 /* Cell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cell.swift; sourceTree = "<group>"; };
+		49B407001EBF9D1900761628 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
+		49B407021EBF9D9D00761628 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
+		49B407041EBF9DBA00761628 /* Score.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +115,9 @@
 				49B406DA1EB7F7B700761628 /* Info.plist */,
 				49B406FC1EB7FB4D00761628 /* NavView.swift */,
 				49B406FE1EB7FB8000761628 /* Cell.swift */,
+				49B407001EBF9D1900761628 /* Question.swift */,
+				49B407021EBF9D9D00761628 /* Answer.swift */,
+				49B407041EBF9DBA00761628 /* Score.swift */,
 			);
 			path = iQuiz;
 			sourceTree = "<group>";
@@ -265,8 +274,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				49B407051EBF9DBA00761628 /* Score.swift in Sources */,
+				49B407011EBF9D1900761628 /* Question.swift in Sources */,
 				49B406FD1EB7FB4D00761628 /* NavView.swift in Sources */,
 				49B406FF1EB7FB8000761628 /* Cell.swift in Sources */,
+				49B407031EBF9D9D00761628 /* Answer.swift in Sources */,
 				49B406D11EB7F7B700761628 /* ViewController.swift in Sources */,
 				49B406CF1EB7F7B700761628 /* AppDelegate.swift in Sources */,
 			);
@@ -515,6 +527,7 @@
 				49B406F51EB7F7B700761628 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		49B406F61EB7F7B700761628 /* Build configuration list for PBXNativeTarget "iQuizTests" */ = {
 			isa = XCConfigurationList;
@@ -523,6 +536,7 @@
 				49B406F81EB7F7B700761628 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		49B406F91EB7F7B700761628 /* Build configuration list for PBXNativeTarget "iQuizUITests" */ = {
 			isa = XCConfigurationList;
@@ -531,6 +545,7 @@
 				49B406FB1EB7F7B700761628 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

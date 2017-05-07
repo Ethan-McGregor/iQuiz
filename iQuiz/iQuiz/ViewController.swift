@@ -8,32 +8,53 @@
 
 import UIKit
 
+class questionList {
+    var questions = [""]
+    var choices = [[""]]
+    var answers = [""]
+    var questionPointer = 0
+    var correctCount = 0
+}
+
 class ViewController: UITableViewController {
     
     let subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
-    let desc = ["Math is fun...?", "Marvel", "SCIENCE!"]
+    let desc = ["You get to do MATH!", "Are you a Marvel buff?", "SCIENCE!!!"]
     let icons = [#imageLiteral(resourceName: "math"), #imageLiteral(resourceName: "marvel"), #imageLiteral(resourceName: "science")]
+    let questions = ["Daredevil's disability is...?", "What is 5 * 4"]
+    let choices = [["He cant walk", "He is blind", "he has one arm", "he cant talk"], ["1", "20", "0", "pie"]]
+    let answers = ["He is blind", "20"]
+    var questionPointer = 0
+    var correctCount = 0
+    
+    @IBOutlet weak var settings: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-           }
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let controller = segue.destination as! QuestionViewController
+        controller.questions = questions
+        controller.choices = choices
+        controller.answers = answers
+        controller.questionPointer = questionPointer
+        controller.correctCount = correctCount
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+        
     }
     
-    
+   
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return subjects.count
+                return subjects.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "iQuizCell", for: indexPath) as! iQuizTableViewCell
         
-        // Configure the cell...
         cell.questionLabel.text = subjects[indexPath.row]
         cell.descLabel.text = desc[indexPath.row]
         cell.iconView.image = icons[indexPath.row]
@@ -41,5 +62,16 @@ class ViewController: UITableViewController {
         return cell
     }
     
-    
+    @IBAction func openSettings(_ sender: AnyObject) {
+        let settingsController = UIAlertController(title: "Settings go here", message: "", preferredStyle: .alert)
+        
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+        
+        settingsController.addAction(defaultAction)
+        
+        present(settingsController, animated: true, completion: nil)
     }
+    
+    
+    
+}
