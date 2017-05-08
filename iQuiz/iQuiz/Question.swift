@@ -24,7 +24,10 @@ class QuestionViewController: UIViewController {
     @IBOutlet weak var q3: UIButton!
     @IBOutlet weak var q4: UIButton!
     
+ 
+   
     
+   
     @IBAction func home(_ sender: Any) {
         homeSelect = true
     }
