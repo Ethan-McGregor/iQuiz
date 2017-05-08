@@ -17,16 +17,21 @@ class QuestionViewController: UIViewController {
     var questionPointer = 0
     var correctCount = 0
     var selected = "0"
+    var homeSelect = false
     
     @IBOutlet weak var q1: UIButton!
     @IBOutlet weak var q2: UIButton!
     @IBOutlet weak var q3: UIButton!
     @IBOutlet weak var q4: UIButton!
     
+    
+    @IBAction func home(_ sender: Any) {
+        homeSelect = true
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        
         
         questionLabel.text = questions[questionPointer]
         
@@ -34,7 +39,6 @@ class QuestionViewController: UIViewController {
         for index in 0...3 {
             choiceButtons[index]?.setTitle(choices[questionPointer][index], for: UIControlState.normal)
         }
-       
     }
     
     
@@ -58,7 +62,9 @@ class QuestionViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(homeSelect == false){
         let controller = segue.destination as! AnswerViewController
         controller.questions = questions
         controller.choices = choices
@@ -66,17 +72,7 @@ class QuestionViewController: UIViewController {
         controller.questionPointer = questionPointer
         controller.correctCount = correctCount
         controller.selected = selected
+        }
     }
-    
-    
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
     
 }

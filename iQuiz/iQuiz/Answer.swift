@@ -24,18 +24,12 @@ class AnswerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
-        // print(self.navigationController!.viewControllers.count)
-        //print(self.navigationController?.viewControllers.count)
-        
-        //self.navigationController?.viewControllers.removeLast()
-        
         
         if (answers[questionPointer] == selected) {
             resultLabel.text = "You are Correct!"
             correctCount += 1
         } else {
-            resultLabel.text = "You are Wrong"
+            resultLabel.text = "Sorry,You are Wrong"
         }
         correctLabel.text = "Answer is: \(answers[questionPointer])"
         

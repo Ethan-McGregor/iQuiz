@@ -13,7 +13,7 @@
         <!--Home-->
         <scene sceneID="ac0-zw-jyH">
             <objects>
-                <tableViewController id="PKM-Y0-f31" customClass="ViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="ViewController" id="PKM-Y0-f31" customClass="ViewController" customModule="iQuiz" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="75" sectionHeaderHeight="28" sectionFooterHeight="28" id="GdJ-iX-1aA">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -147,7 +147,7 @@
                                     <action selector="selectOption:" destination="Koo-Ox-EEL" eventType="touchUpInside" id="hcP-cI-5NB"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15U-91-F9S">
+                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="submit" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="15U-91-F9S">
                                 <rect key="frame" x="163" y="513" width="49" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="49" id="E5B-mY-dRP"/>
@@ -158,7 +158,7 @@
                                     <action selector="submit:" destination="Koo-Ox-EEL" eventType="touchUpInside" id="NkF-Sg-pMn"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llF-6m-Dao">
+                            <button opaque="NO" contentMode="scaleToFill" restorationIdentifier="home" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="llF-6m-Dao">
                                 <rect key="frame" x="167" y="569" width="41" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="41" id="ISs-zn-F1T"/>
@@ -166,7 +166,8 @@
                                 </constraints>
                                 <state key="normal" title="Home"/>
                                 <connections>
-                                    <segue destination="LOc-pK-P2Q" kind="showDetail" id="zP4-Ok-5xm"/>
+                                    <action selector="home:" destination="Koo-Ox-EEL" eventType="touchUpInside" id="Ik8-ne-jGZ"/>
+                                    <segue destination="LOc-pK-P2Q" kind="showDetail" id="LQd-Zb-f0G"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -332,7 +333,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sRQ-Wp-oIe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1669.1154422788607" y="116"/>
+            <point key="canvasLocation" x="1668" y="115.59220389805098"/>
         </scene>
         <!--Answer View Controller-->
         <scene sceneID="K8P-mT-yxE">
@@ -589,7 +590,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="FCr-KT-0QM"/>
-        <segue reference="mcL-1i-tSC"/>
+        <segue reference="Ziq-32-Re0"/>
+        <segue reference="LQd-Zb-f0G"/>
     </inferredMetricsTieBreakers>
 </document>
