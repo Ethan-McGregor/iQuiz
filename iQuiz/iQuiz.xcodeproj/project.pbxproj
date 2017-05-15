@@ -19,6 +19,8 @@
 		49B407011EBF9D1900761628 /* Question.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B407001EBF9D1900761628 /* Question.swift */; };
 		49B407031EBF9D9D00761628 /* Answer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B407021EBF9D9D00761628 /* Answer.swift */; };
 		49B407051EBF9DBA00761628 /* Score.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B407041EBF9DBA00761628 /* Score.swift */; };
+		49B47ED81ECA2C9400DDCB81 /* QuestionObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B47ED71ECA2C9400DDCB81 /* QuestionObject.swift */; };
+		49B47EDA1ECA2D3300DDCB81 /* item.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49B47ED91ECA2D3300DDCB81 /* item.swift */; };
 		4E38FC964A3EBDD61492083E /* Pods_iQuiz.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABB1FCCA3965929A836E09C0 /* Pods_iQuiz.framework */; };
 /* End PBXBuildFile section */
 
@@ -58,6 +60,8 @@
 		49B407001EBF9D1900761628 /* Question.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Question.swift; sourceTree = "<group>"; };
 		49B407021EBF9D9D00761628 /* Answer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Answer.swift; sourceTree = "<group>"; };
 		49B407041EBF9DBA00761628 /* Score.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Score.swift; sourceTree = "<group>"; };
+		49B47ED71ECA2C9400DDCB81 /* QuestionObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = QuestionObject.swift; sourceTree = "<group>"; };
+		49B47ED91ECA2D3300DDCB81 /* item.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = item.swift; sourceTree = "<group>"; };
 		4B84986AA3893BEA7CE05C10 /* Pods-iQuiz.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iQuiz.release.xcconfig"; path = "Pods/Target Support Files/Pods-iQuiz/Pods-iQuiz.release.xcconfig"; sourceTree = "<group>"; };
 		90B64EEB687D8BA46866C41F /* Pods-iQuiz.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-iQuiz.debug.xcconfig"; path = "Pods/Target Support Files/Pods-iQuiz/Pods-iQuiz.debug.xcconfig"; sourceTree = "<group>"; };
 		ABB1FCCA3965929A836E09C0 /* Pods_iQuiz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_iQuiz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -125,6 +129,7 @@
 			children = (
 				49B406CE1EB7F7B700761628 /* AppDelegate.swift */,
 				49B406D01EB7F7B700761628 /* ViewController.swift */,
+				49B47ED91ECA2D3300DDCB81 /* item.swift */,
 				49B406D21EB7F7B700761628 /* Main.storyboard */,
 				49B406D51EB7F7B700761628 /* Assets.xcassets */,
 				49B406D71EB7F7B700761628 /* LaunchScreen.storyboard */,
@@ -134,6 +139,7 @@
 				49B407001EBF9D1900761628 /* Question.swift */,
 				49B407021EBF9D9D00761628 /* Answer.swift */,
 				49B407041EBF9DBA00761628 /* Score.swift */,
+				49B47ED71ECA2C9400DDCB81 /* QuestionObject.swift */,
 			);
 			path = iQuiz;
 			sourceTree = "<group>";
@@ -350,11 +356,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				49B407051EBF9DBA00761628 /* Score.swift in Sources */,
+				49B47EDA1ECA2D3300DDCB81 /* item.swift in Sources */,
 				49B407011EBF9D1900761628 /* Question.swift in Sources */,
 				49B406FD1EB7FB4D00761628 /* NavView.swift in Sources */,
 				49B406FF1EB7FB8000761628 /* Cell.swift in Sources */,
 				49B407031EBF9D9D00761628 /* Answer.swift in Sources */,
 				49B406D11EB7F7B700761628 /* ViewController.swift in Sources */,
+				49B47ED81ECA2C9400DDCB81 /* QuestionObject.swift in Sources */,
 				49B406CF1EB7F7B700761628 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

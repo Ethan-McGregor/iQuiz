@@ -17,6 +17,8 @@ class questionList {
     var correctCount = 0
 }
 
+
+
 class ViewController: UITableViewController {
     
     let subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
@@ -28,10 +30,43 @@ class ViewController: UITableViewController {
     var questionPointer = 0
     var correctCount = 0
     
+    var subjectList : [item] = []
+    var subjectNum = 0
+
+    
+    
     @IBOutlet weak var settings: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        let url = URL(string: "https://tednewardsandbox.site44.com/questions.json")
+
+        Alamofire.request(url!).responseJSON{ response in
+            debugPrint(response)
+            
+            
+            if let json = response.result.value as? [[String:Any]]{
+                for index in 0...json.count - 1{
+                    let title = json[index]["title"] as! String
+                    let description = json[index]["desc"] as!String
+                    let questions = json[index]["questions"] as! [[String:Any]]
+                    var questionList : [QuestionObject] = []
+                    for num in 0...questions.count - 1{
+                        let question = questions[num]["text"] as! String
+                        let correctAnswer = questions[num]["answer"] as! String
+                        let answers = questions[num]["answers"] as! [String]
+                        questionList.append(QuestionObject(Int(correctAnswer)!, question, answers))
+                    }
+                    
+                    self.subjectList.append(item(title, description, "mathicon"))
+                    self.subjectList[index].questions = questionList
+                    
+                }
+                print("JSON: \(json)")
+            }
+            self.tableView.reloadData()
+        }
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -49,20 +84,24 @@ class ViewController: UITableViewController {
         
     }
     
-   
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                return subjects.count
+                return subjectList.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "iQuizCell", for: indexPath) as! iQuizTableViewCell
-        
-        cell.questionLabel.text = subjects[indexPath.row]
-        cell.descLabel.text = desc[indexPath.row]
-        cell.iconView.image = icons[indexPath.row]
-        
-        return cell
-    }
+            
+            let item = self.subjectList[indexPath.row]
+            cell.questionLabel.text = item.subjectTitle
+            cell.descLabel.text = item.descriptionText
+            if item.iconImage != nil{
+                cell.iconView.image = item.iconImage!
+            } else {
+                cell.iconView.image = UIImage(named: item.icon)
+            }
+            return cell
+        }
+
     
     @IBAction func openSettings(_ sender: AnyObject) {
         let settingsController = UIAlertController(title: "Settings go here", message: "", preferredStyle: .alert)
@@ -73,7 +112,6 @@ class ViewController: UITableViewController {
         
         present(settingsController, animated: true, completion: nil)
     }
-    
     
     
 }
