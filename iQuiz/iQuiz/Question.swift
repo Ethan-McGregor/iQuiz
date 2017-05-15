@@ -11,6 +11,13 @@ import UIKit
 class QuestionViewController: UIViewController {
     
     @IBOutlet weak var questionLabel: UILabel!
+    //NEW
+    var subjectTopic : item?
+    var currentQuestion : QuestionObject?
+    var answer = 0
+    var questionNum = 1
+    var correctNum = 0
+
     var questions = [""]
     var choices = [[""]]
     var answers = [""]
@@ -25,7 +32,10 @@ class QuestionViewController: UIViewController {
     @IBOutlet weak var q4: UIButton!
     
  
-   
+    
+
+    
+    
     
    
     @IBAction func home(_ sender: Any) {
@@ -34,13 +44,17 @@ class QuestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        currentQuestion = subjectTopic?.questions[questionNum - 1]
+        questionLabel.text = currentQuestion!.question
         
         
-        questionLabel.text = questions[questionPointer]
+
+        
+        questionLabel.text = currentQuestion!.question
         
         var choiceButtons = [q1, q2, q3, q4]
         for index in 0...3 {
-            choiceButtons[index]?.setTitle(choices[questionPointer][index], for: UIControlState.normal)
+            choiceButtons[index]?.setTitle(currentQuestion!.Answer[index], for: UIControlState.normal)
         }
     }
     

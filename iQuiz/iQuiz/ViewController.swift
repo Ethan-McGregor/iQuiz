@@ -77,6 +77,11 @@ class ViewController: UITableViewController {
         controller.answers = answers
         controller.questionPointer = questionPointer
         controller.correctCount = correctCount
+        
+        //NEW
+        let questionView = segue.destination as! QuestionViewController
+                      questionView.subjectTopic = subjectList[subjectNum]
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -102,7 +107,17 @@ class ViewController: UITableViewController {
             return cell
         }
 
-    
+//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("cell # \(indexPath.row) selected")
+//        
+//        subjectNum = indexPath.row
+//        let questionView = self.storyboard?.instantiateViewController(withIdentifier: "questionScene") as! QuestionViewController
+//        
+//        questionView.subjectTopic = self.subjectList[subjectNum]
+//        self.navigationController?.pushViewController(questionView, animated: true)
+//        //self.performSegue(withIdentifier: "ToQuestion", sender: self)
+//    }
+
     @IBAction func openSettings(_ sender: AnyObject) {
         let settingsController = UIAlertController(title: "Settings go here", message: "", preferredStyle: .alert)
         

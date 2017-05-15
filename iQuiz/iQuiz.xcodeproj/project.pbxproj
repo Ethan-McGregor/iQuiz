@@ -127,8 +127,9 @@
 		49B406CD1EB7F7B700761628 /* iQuiz */ = {
 			isa = PBXGroup;
 			children = (
-				49B406CE1EB7F7B700761628 /* AppDelegate.swift */,
 				49B406D01EB7F7B700761628 /* ViewController.swift */,
+				49B407001EBF9D1900761628 /* Question.swift */,
+				49B406CE1EB7F7B700761628 /* AppDelegate.swift */,
 				49B47ED91ECA2D3300DDCB81 /* item.swift */,
 				49B406D21EB7F7B700761628 /* Main.storyboard */,
 				49B406D51EB7F7B700761628 /* Assets.xcassets */,
@@ -136,7 +137,6 @@
 				49B406DA1EB7F7B700761628 /* Info.plist */,
 				49B406FC1EB7FB4D00761628 /* NavView.swift */,
 				49B406FE1EB7FB8000761628 /* Cell.swift */,
-				49B407001EBF9D1900761628 /* Question.swift */,
 				49B407021EBF9D9D00761628 /* Answer.swift */,
 				49B407041EBF9DBA00761628 /* Score.swift */,
 				49B47ED71ECA2C9400DDCB81 /* QuestionObject.swift */,
