@@ -14,7 +14,6 @@ class NavView: UINavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
        
     }
     
@@ -33,8 +32,4 @@ class NavView: UINavigationController {
         
         present(settingsController, animated: true, completion: nil)
     }
-    
-    
-
-    
 }

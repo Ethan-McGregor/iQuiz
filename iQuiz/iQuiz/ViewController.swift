@@ -20,8 +20,6 @@ class questionList {
     var correctCount = 0
 }
 
-
-
 class ViewController: UITableViewController {
     
     var questionPointer = 0
@@ -34,9 +32,6 @@ class ViewController: UITableViewController {
 
     let url = URL(string: "https://tednewardsandbox.site44.com/questions.json")
 
-
-    
-    
     @IBOutlet weak var settings: UIBarButtonItem!
     
     override func viewDidLoad() {
@@ -77,6 +72,7 @@ class ViewController: UITableViewController {
         row = ""
         userDefaults = UserDefaults.standard
         
+        //Goes here if phone IS connected to the internet
         if(isInternetAvailable()){
             let refreshControl = UIRefreshControl()
             refreshControl.addTarget(self, action: Selector(("loadData")), for: UIControlEvents.valueChanged)
@@ -110,13 +106,14 @@ class ViewController: UITableViewController {
                 }
                 
 
-                
                 if (self.refreshControl?.isRefreshing)!{
                     
                     self.refreshControl?.endRefreshing()
                 }
                 self.tableView.reloadData()
             }
+            
+        //Goes here if phone is NOT connected to the internet
         }else{
             questionPointer = 0
             correctCount = 0
@@ -147,8 +144,6 @@ class ViewController: UITableViewController {
             self.tableView.reloadData()
 
         }
-       
-        
     }
     
     
@@ -162,7 +157,6 @@ class ViewController: UITableViewController {
     }
     
   
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "iQuizCell", for: indexPath) as! iQuizTableViewCell
         print("cell # \(indexPath.row) selected")
@@ -191,15 +185,10 @@ class ViewController: UITableViewController {
         controller.correctCount = correctCount
         
         let path = self.tableView.indexPathForSelectedRow! [1] + 0
-        
-        print(path)
-        
-        //NEW
+
         let questionView = segue.destination as! QuestionViewController
         questionView.subjectTopic = subjectList
         questionView.topicNum = Int(path)
-        
-        
     }
 
     @IBAction func openSettings(_ sender: AnyObject) {
