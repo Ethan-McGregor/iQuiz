@@ -32,6 +32,7 @@ class ViewController: UITableViewController {
     
     var subjectList : [item] = []
     var subjectNum = 0
+    var row = ""
 
     
     
@@ -69,20 +70,7 @@ class ViewController: UITableViewController {
 
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        let controller = segue.destination as! QuestionViewController
-        controller.questions = questions
-        controller.choices = choices
-        controller.answers = answers
-        controller.questionPointer = questionPointer
-        controller.correctCount = correctCount
-        
-        //NEW
-        let questionView = segue.destination as! QuestionViewController
-                      questionView.subjectTopic = subjectList[subjectNum]
-        
-    }
+
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -95,7 +83,8 @@ class ViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "iQuizCell", for: indexPath) as! iQuizTableViewCell
-            
+        print("cell # \(indexPath.row) selected")
+
             let item = self.subjectList[indexPath.row]
             cell.questionLabel.text = item.subjectTitle
             cell.descLabel.text = item.descriptionText
@@ -117,6 +106,32 @@ class ViewController: UITableViewController {
 //        self.navigationController?.pushViewController(questionView, animated: true)
 //        //self.performSegue(withIdentifier: "ToQuestion", sender: self)
 //    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+                row = ("cell # \(indexPath.row) selected")
+        
+        }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        let controller = segue.destination as! QuestionViewController
+        controller.questions = questions
+        controller.choices = choices
+        controller.answers = answers
+        controller.questionPointer = questionPointer
+        controller.correctCount = correctCount
+        
+        let path = self.tableView.indexPathForSelectedRow! [1] + 0
+        
+        print(path)
+        
+        //NEW
+        let questionView = segue.destination as! QuestionViewController
+        questionView.subjectTopic = subjectList
+        questionView.topicNum = Int(path)
+        
+        
+    }
 
     @IBAction func openSettings(_ sender: AnyObject) {
         let settingsController = UIAlertController(title: "Settings go here", message: "", preferredStyle: .alert)

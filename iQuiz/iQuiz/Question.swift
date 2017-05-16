@@ -12,12 +12,14 @@ class QuestionViewController: UIViewController {
     
     @IBOutlet weak var questionLabel: UILabel!
     //NEW
-    var subjectTopic : item?
+    var subjectTopic : [item] = []
+    var currentTopic : item?
     var currentQuestion : QuestionObject?
     var answer = 0
     var questionNum = 1
     var correctNum = 0
-
+    var topicNum = 0
+    
     var questions = [""]
     var choices = [[""]]
     var answers = [""]
@@ -30,13 +32,6 @@ class QuestionViewController: UIViewController {
     @IBOutlet weak var q2: UIButton!
     @IBOutlet weak var q3: UIButton!
     @IBOutlet weak var q4: UIButton!
-    
- 
-    
-
-    
-    
-    
    
     @IBAction func home(_ sender: Any) {
         homeSelect = true
@@ -44,11 +39,9 @@ class QuestionViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        currentQuestion = subjectTopic?.questions[questionNum - 1]
+        currentTopic = subjectTopic[topicNum]
+        currentQuestion = currentTopic?.questions[questionPointer]
         questionLabel.text = currentQuestion!.question
-        
-        
-
         
         questionLabel.text = currentQuestion!.question
         
