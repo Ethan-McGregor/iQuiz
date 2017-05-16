@@ -10,6 +10,7 @@ import UIKit
 import Alamofire
 import Foundation
 import SystemConfiguration
+import SwiftyJSON
 
 class questionList {
     var questions = [""]
@@ -43,21 +44,10 @@ class ViewController: UITableViewController {
         
         loadData()
         
-        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: subjectList)
-        userDefaults.set(encodedData, forKey: "subjectList")
-        userDefaults.synchronize()
-        
-        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: subjectList), forKey: "subjectList")
-        
-        let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: Selector(("loadData")), for: UIControlEvents.valueChanged)
-        self.refreshControl = refreshControl
-    
-    
-        
     }
-    func isInternetAvailable() -> Bool
-    {
+    
+    func isInternetAvailable() -> Bool{
+        
         var zeroAddress = sockaddr_in()
         zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
         zeroAddress.sin_family = sa_family_t(AF_INET)
@@ -80,51 +70,87 @@ class ViewController: UITableViewController {
     func loadData(){
         let url = URL(string: "https://tednewardsandbox.site44.com/questions.json")
         
-        
         questionPointer = 0
-         correctCount = 0
-         subjectList = []
-         subjectNum = 0
-         row = ""
-         userDefaults = UserDefaults.standard
-
-
-        //This technique of retiving JSON data was based off a presentation in class showing alamofire
+        correctCount = 0
+        subjectList = []
+        subjectNum = 0
+        row = ""
+        userDefaults = UserDefaults.standard
+        
         if(isInternetAvailable()){
-        Alamofire.request(url!).responseJSON{ response in
-            debugPrint(response)
+            let refreshControl = UIRefreshControl()
+            refreshControl.addTarget(self, action: Selector(("loadData")), for: UIControlEvents.valueChanged)
+            self.refreshControl = refreshControl
             
-            let pics = ["science","marvel", "math"]
-            if let json = response.result.value as? [[String:Any]]{
-                for index in 0...json.count - 1{
-                    let title = json[index]["title"] as! String
-                    let description = json[index]["desc"] as!String
-                    let questions = json[index]["questions"] as! [[String:Any]]
-                    var questionList : [QuestionObject] = []
-                    for num in 0...questions.count - 1{
-                        let question = questions[num]["text"] as! String
-                        let correctAnswer = questions[num]["answer"] as! String
-                        let answers = questions[num]["answers"] as! [String]
-                        questionList.append(QuestionObject(Int(correctAnswer)!, question, answers))
+            Alamofire.request(url!).responseJSON{ response in
+                debugPrint(response)
+                
+                let pics = ["science","marvel", "math"]
+                if let json = response.result.value as? [[String:Any]]{
+                    
+                    for index in 0...json.count - 1{
+                        
+                        let title = json[index]["title"] as! String
+                        let description = json[index]["desc"] as!String
+                        let questions = json[index]["questions"] as! [[String:Any]]
+                        var questionList : [QuestionObject] = []
+                        for num in 0...questions.count - 1{
+                            
+                            let question = questions[num]["text"] as! String
+                            let correctAnswer = questions[num]["answer"] as! String
+                            let answers = questions[num]["answers"] as! [String]
+                            questionList.append(QuestionObject(Int(correctAnswer)!, question, answers))
+                        }
+                        
+                        self.subjectList.append(item(title, description, pics[index]))
+                        self.subjectList[index].questions = questionList
                     }
-                    self.subjectList.append(item(title, description, pics[index]))
-                    self.subjectList[index].questions = questionList
+                    let defaults = UserDefaults.standard
+                    defaults.setValue(json, forKey: "json")
                 }
+                
+
+                
+                if (self.refreshControl?.isRefreshing)!{
+                    
+                    self.refreshControl?.endRefreshing()
+                }
+                self.tableView.reloadData()
             }
-            if (self.refreshControl?.isRefreshing)!
-            {
-                self.refreshControl?.endRefreshing()
+        }else{
+            questionPointer = 0
+            correctCount = 0
+            subjectList = []
+            subjectNum = 0
+            row = ""
+            
+            let js = UserDefaults.standard.value(forKey: "json") as! [[String:Any]]
+            let pics = ["science","marvel", "math"]
+            
+            for index in 0...js.count - 1{
+                
+                let title = js[index]["title"] as! String
+                let description = js[index]["desc"] as!String
+                let questions = js[index]["questions"] as! [[String:Any]]
+                var questionList : [QuestionObject] = []
+                for num in 0...questions.count - 1{
+                    
+                    let question = questions[num]["text"] as! String
+                    let correctAnswer = questions[num]["answer"] as! String
+                    let answers = questions[num]["answers"] as! [String]
+                    questionList.append(QuestionObject(Int(correctAnswer)!, question, answers))
+                }
+                
+                self.subjectList.append(item(title, description, pics[index]))
+                self.subjectList[index].questions = questionList
             }
             self.tableView.reloadData()
+
         }
-        }else{
-            let decoded = self.userDefaults.object(forKey: "subjectList") as! Data
-            self.subjectList = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [item]
-            
-            
+       
         
-        }
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

@@ -11,7 +11,6 @@ import UIKit
 class QuestionViewController: UIViewController {
     
     @IBOutlet weak var questionLabel: UILabel!
-    //NEW
     var subjectTopic : [item] = []
     var currentTopic : item?
     var currentQuestion : QuestionObject?
@@ -32,6 +31,7 @@ class QuestionViewController: UIViewController {
     @IBAction func home(_ sender: Any) {
         homeSelect = true
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
