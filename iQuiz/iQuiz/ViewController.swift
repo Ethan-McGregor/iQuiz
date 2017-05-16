@@ -8,6 +8,8 @@
 
 import UIKit
 import Alamofire
+import Foundation
+import SystemConfiguration
 
 class questionList {
     var questions = [""]
@@ -21,18 +23,16 @@ class questionList {
 
 class ViewController: UITableViewController {
     
-    let subjects = ["Mathematics", "Marvel Super Heroes", "Science"]
-    let desc = ["You get to do MATH!", "Are you a Marvel buff?", "SCIENCE!!!"]
-    let icons = [#imageLiteral(resourceName: "math"), #imageLiteral(resourceName: "marvel"), #imageLiteral(resourceName: "science")]
-    let questions = ["Daredevil's disability is...?", "What is 5 * 4"]
-    let choices = [["He cant walk", "He is blind", "he has one arm", "he cant talk"], ["1", "20", "0", "pie"]]
-    let answers = ["He is blind", "20"]
     var questionPointer = 0
     var correctCount = 0
     
     var subjectList : [item] = []
     var subjectNum = 0
     var row = ""
+    var userDefaults = UserDefaults.standard
+
+    let url = URL(string: "https://tednewardsandbox.site44.com/questions.json")
+
 
     
     
@@ -40,12 +40,46 @@ class ViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let url = URL(string: "https://tednewardsandbox.site44.com/questions.json")
-
-        Alamofire.request(url!).responseJSON{ response in
+        
+        loadData(url: url!)
+        
+        let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: subjectList)
+        userDefaults.set(encodedData, forKey: "subjectList")
+        userDefaults.synchronize()
+        
+        userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: subjectList), forKey: "subjectList")
+        
+        
+    }
+    func isInternetAvailable() -> Bool
+    {
+        var zeroAddress = sockaddr_in()
+        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin_family = sa_family_t(AF_INET)
+        
+        let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
+            $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
+                SCNetworkReachabilityCreateWithAddress(nil, zeroSockAddress)
+            }
+        }
+        
+        var flags = SCNetworkReachabilityFlags()
+        if !SCNetworkReachabilityGetFlags(defaultRouteReachability!, &flags) {
+            return false
+        }
+        let isReachable = (flags.rawValue & UInt32(kSCNetworkFlagsReachable)) != 0
+        let needsConnection = (flags.rawValue & UInt32(kSCNetworkFlagsConnectionRequired)) != 0
+        return (isReachable && !needsConnection)
+    }
+    
+    func loadData(url: URL){
+        
+        //This technique of retiving JSON data was based off a presentation in class showing alamofire
+        if(isInternetAvailable()){
+        Alamofire.request(url).responseJSON{ response in
             debugPrint(response)
             
-            
+            let pics = ["science","marvel", "math"]
             if let json = response.result.value as? [[String:Any]]{
                 for index in 0...json.count - 1{
                     let title = json[index]["title"] as! String
@@ -58,19 +92,20 @@ class ViewController: UITableViewController {
                         let answers = questions[num]["answers"] as! [String]
                         questionList.append(QuestionObject(Int(correctAnswer)!, question, answers))
                     }
-                    
-                    self.subjectList.append(item(title, description, "mathicon"))
+                    self.subjectList.append(item(title, description, pics[index]))
                     self.subjectList[index].questions = questionList
-                    
                 }
-                print("JSON: \(json)")
             }
             self.tableView.reloadData()
         }
-
+        }else{
+            let decoded = self.userDefaults.object(forKey: "subjectList") as! Data
+            self.subjectList = NSKeyedUnarchiver.unarchiveObject(with: decoded) as! [item]
+            
+            
+        
+        }
     }
-    
-
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -96,16 +131,6 @@ class ViewController: UITableViewController {
             return cell
         }
 
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        print("cell # \(indexPath.row) selected")
-//        
-//        subjectNum = indexPath.row
-//        let questionView = self.storyboard?.instantiateViewController(withIdentifier: "questionScene") as! QuestionViewController
-//        
-//        questionView.subjectTopic = self.subjectList[subjectNum]
-//        self.navigationController?.pushViewController(questionView, animated: true)
-//        //self.performSegue(withIdentifier: "ToQuestion", sender: self)
-//    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                 row = ("cell # \(indexPath.row) selected")
@@ -142,3 +167,15 @@ class ViewController: UITableViewController {
     
     
 }
+extension NSObject {
+    static func storeJSON(dataToStore: [String: AnyObject], completion: (_ data: NSData?) -> Void) {
+        do {
+            let data = try JSONSerialization.data(withJSONObject: dataToStore, options: [])
+            completion(data as NSData)
+        } catch let error as NSError {
+            print("NSJSONSerialization Error: \(error)")
+            completion(nil)
+        }
+    }
+}
+
