@@ -41,7 +41,7 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        loadData(url: url!)
+        loadData()
         
         let encodedData: Data = NSKeyedArchiver.archivedData(withRootObject: subjectList)
         userDefaults.set(encodedData, forKey: "subjectList")
@@ -49,6 +49,11 @@ class ViewController: UITableViewController {
         
         userDefaults.set(NSKeyedArchiver.archivedData(withRootObject: subjectList), forKey: "subjectList")
         
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: Selector(("loadData")), for: UIControlEvents.valueChanged)
+        self.refreshControl = refreshControl
+    
+    
         
     }
     func isInternetAvailable() -> Bool
@@ -72,11 +77,21 @@ class ViewController: UITableViewController {
         return (isReachable && !needsConnection)
     }
     
-    func loadData(url: URL){
+    func loadData(){
+        let url = URL(string: "https://tednewardsandbox.site44.com/questions.json")
         
+        
+        questionPointer = 0
+         correctCount = 0
+         subjectList = []
+         subjectNum = 0
+         row = ""
+         userDefaults = UserDefaults.standard
+
+
         //This technique of retiving JSON data was based off a presentation in class showing alamofire
         if(isInternetAvailable()){
-        Alamofire.request(url).responseJSON{ response in
+        Alamofire.request(url!).responseJSON{ response in
             debugPrint(response)
             
             let pics = ["science","marvel", "math"]
@@ -95,6 +110,10 @@ class ViewController: UITableViewController {
                     self.subjectList.append(item(title, description, pics[index]))
                     self.subjectList[index].questions = questionList
                 }
+            }
+            if (self.refreshControl?.isRefreshing)!
+            {
+                self.refreshControl?.endRefreshing()
             }
             self.tableView.reloadData()
         }
@@ -115,6 +134,8 @@ class ViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
                 return subjectList.count
     }
+    
+  
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "iQuizCell", for: indexPath) as! iQuizTableViewCell
