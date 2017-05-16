@@ -115,9 +115,6 @@ class ViewController: UITableViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         let controller = segue.destination as! QuestionViewController
-        controller.questions = questions
-        controller.choices = choices
-        controller.answers = answers
         controller.questionPointer = questionPointer
         controller.correctCount = correctCount
         

@@ -10,12 +10,13 @@ import UIKit
 
 class AnswerViewController: UIViewController {
     
-    var questions = [""]
-    var choices = [[""]]
-    var answers = [""]
+    var currentTopic : item?
+    var currentQuestion : QuestionObject?
+    var subjectTopic : [item] = []
     var questionPointer = 0
     var correctCount = 0
     var selected = "0"
+    var topicNum = 0
     
     @IBOutlet weak var resultLabel: UILabel!
     @IBOutlet weak var correctLabel: UILabel!
@@ -25,15 +26,15 @@ class AnswerViewController: UIViewController {
         super.viewDidLoad()
         
         
-        if (answers[questionPointer] == selected) {
+        if ( selected == (currentQuestion?.Answer[(currentQuestion?.correctAnswer)! - 1])! ) {
             resultLabel.text = "You are Correct!"
             correctCount += 1
         } else {
             resultLabel.text = "Sorry,You are Wrong"
         }
-        correctLabel.text = "Answer is: \(answers[questionPointer])"
+        correctLabel.text = "Answer is: \(String((currentQuestion?.Answer[(currentQuestion?.correctAnswer)! - 1])!)!  )"
         
-        if (questionPointer < questions.count - 1) {
+        if (questionPointer < (currentTopic?.questions.count)! - 1) {
             nextButton.setTitle("Next", for: UIControlState.normal)
         } else {
             nextButton.setTitle("Finished", for: UIControlState.normal)
@@ -46,7 +47,7 @@ class AnswerViewController: UIViewController {
     }
     
     @IBAction func toNextScore(_ sender: AnyObject) {
-        if (questionPointer < questions.count - 1) {
+        if (questionPointer < (currentTopic?.questions.count)! - 1) {
             questionPointer += 1
             performSegue(withIdentifier: "QuestionView", sender: self)
         } else {
@@ -58,14 +59,16 @@ class AnswerViewController: UIViewController {
         if (segue.identifier == "ScoreView") {
             let controller = segue.destination as! ScoreViewController
             controller.correctCount = correctCount
-            controller.numQuestions = questions.count
+            controller.numQuestions = (currentTopic?.questions.count)!
         } else {
             let controller = segue.destination as! QuestionViewController
-            controller.questions = questions
-            controller.choices = choices
-            controller.answers = answers
             controller.questionPointer = questionPointer
             controller.correctCount = correctCount
+            controller.topicNum = topicNum
+            controller.currentTopic = currentTopic
+            controller.currentQuestion = currentQuestion
+            controller.subjectTopic = subjectTopic
+
         }
     }
     

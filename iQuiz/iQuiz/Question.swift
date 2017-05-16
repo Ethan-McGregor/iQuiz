@@ -16,13 +16,9 @@ class QuestionViewController: UIViewController {
     var currentTopic : item?
     var currentQuestion : QuestionObject?
     var answer = 0
-    var questionNum = 1
     var correctNum = 0
     var topicNum = 0
     
-    var questions = [""]
-    var choices = [[""]]
-    var answers = [""]
     var questionPointer = 0
     var correctCount = 0
     var selected = "0"
@@ -76,12 +72,13 @@ class QuestionViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if(homeSelect == false){
         let controller = segue.destination as! AnswerViewController
-        controller.questions = questions
-        controller.choices = choices
-        controller.answers = answers
         controller.questionPointer = questionPointer
         controller.correctCount = correctCount
         controller.selected = selected
+        controller.topicNum = topicNum
+        controller.currentTopic = currentTopic
+        controller.currentQuestion = currentQuestion
+        controller.subjectTopic = subjectTopic
         }
     }
     
